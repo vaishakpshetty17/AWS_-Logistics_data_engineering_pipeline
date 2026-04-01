@@ -1,15 +1,19 @@
-import psycopg2 
+#To read data from database to s3 (bronze)
+import psycopg2  #library to connect python with postgresSQL
 import pandas as pd 
 import boto3
 import json
+import os
+from dotenv import load_dotenv
 from datetime import datetime
 
+load_dotenv()
 
 database_config = {
-    'host': 'localhost',
-    'database': 'Logistics',
-    'user': 'postgres',
-    'password': 'dataengineeringproject'
+    "host": os.getenv("DB_HOST"),
+    "database": os.getenv("DB_NAME"),
+    "user": os.getenv("DB_USER"),
+    "password": os.getenv("DB_PASSWORD")
 }
 
 #S3 bucket comfig
