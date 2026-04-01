@@ -207,3 +207,115 @@ Handling different data formats:
 
 ---
 
+# Phase 3: Data Processing & Transformation (Medallion Architecture)
+
+## 📌 Overview
+
+Phase 3 focuses on transforming raw ingested data into **clean, structured, and analytics-ready datasets** using **PySpark in Databricks**.
+
+This phase implements the **Medallion Architecture (Bronze → Silver → Gold)**, a widely used data engineering pattern in modern data platforms.
+
+---
+
+## 🏗️ Architecture (Medallion Model)
+
+```
+            Bronze Layer (Raw Data - S3)
+                      ↓
+            Silver Layer (Cleaned Data)
+                      ↓
+            Gold Layer (Business Insights)
+```
+
+---
+
+## 📥 Input Data (From Phase 2)
+
+Data ingested into Amazon S3 Bronze layer:
+
+* API Data → `bronze/api_data/`
+* Database Data → `bronze/db_data/`
+* File Logs → `bronze/file_data/`
+
+---
+
+## ⚙️ Processing Environment
+
+* Databricks (PySpark)
+* Apache Spark (Distributed Processing)
+* Amazon S3 (Data Lake)
+
+---
+
+## 🧹 Silver Layer: Data Cleaning & Transformation
+
+Each dataset is cleaned and standardized before joining.
+
+---
+
+### 🔹 API Data Cleaning
+
+* Removed duplicates
+* Filtered null `shipment_id`
+* Standardized timestamp format
+
+---
+
+### 🔹 Database Data Cleaning
+
+* Removed duplicates
+* Ensured valid shipment records
+
+---
+
+### 🔹 File Logs Cleaning (Terminal Events)
+
+* Removed duplicates
+* Converted timestamps
+* Handled semi-structured data
+
+---
+
+## 🔗 Data Integration (Joins)
+
+Data from multiple sources is combined using `shipment_id`.
+
+### Step 1: Join Database + API
+
+
+### Step 2: Aggregate File Logs
+
+To avoid duplication due to multiple events per shipment:
+
+---
+
+### Step 3: Final Join
+
+```python
+final_df = df1.join(latest_file_df, "shipment_id", "left")
+```
+
+## 📊 Gold Layer: Business Insights
+
+The final dataset is transformed into analytics-ready metrics.
+
+---
+## 💾 Data Storage (Gold Layer)
+
+Processed datasets are stored in Amazon S3:
+
+```
+gold/status_summary/
+gold/terminal_summary/
+```
+
+## 🧠 Key Concepts Implemented
+
+* Medallion Architecture (Bronze, Silver, Gold)
+* Data Cleaning & Standardization
+* Handling Semi-Structured Data
+* Multi-source Data Integration
+* Aggregation to prevent duplication
+* Business KPI generation
+* Distributed data processing using PySpark
+---

@@ -28,7 +28,7 @@ def get_shipment():
 
 @app.route("/shipments", methods=["GET"])
 def get_multiple_shipments():
-    data = [generate_shipment() for _ in range(5)]
+    data = [generate_shipment() for _ in range(100)]
     return jsonify(data)
 
 
