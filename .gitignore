@@ -4,3 +4,17 @@ __pycache__/
 *.pyc
 .DS_Store
 
+# Virtual environments
+venv/
+airflow_venv/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Environment variables
+.env
+
+# Airflow logs
+airflow/logs/
+airflow/*.db

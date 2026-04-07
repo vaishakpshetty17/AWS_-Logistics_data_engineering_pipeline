@@ -319,3 +319,40 @@ gold/terminal_summary/
 * Business KPI generation
 * Distributed data processing using PySpark
 ---
+
+# 🚀 Phase 4: Workflow Orchestration using Apache Airflow
+
+## 📌 Overview
+
+In **Phase 4**, the project is enhanced by integrating **Apache Airflow** to orchestrate the entire data pipeline. This phase transforms the project from manually executed scripts into a **fully automated, production-like data pipeline**.
+
+Airflow enables scheduling, monitoring, and managing dependencies between tasks, making the pipeline scalable and reliable.
+
+---
+
+## 🎯 Objectives
+
+* Automate ingestion and transformation workflows
+* Define task dependencies using DAGs (Directed Acyclic Graphs)
+* Schedule and monitor pipeline execution
+* Simulate real-world orchestration used in data engineering systems
+
+---
+
+## 🏗️ Architecture (Phase 4)
+
+```
+            Apache Airflow (Orchestration Layer)
+                        ↓
+    ---------------------------------------------
+    | API Ingestion | DB Ingestion | File Ingestion |
+    ---------------------------------------------
+                        ↓
+                AWS S3 (Bronze Layer)
+                        ↓
+            PySpark Transformation (WSL)
+                        ↓
+           Silver Layer → Gold Layer (S3)
+```
+
+
